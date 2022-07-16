@@ -108,6 +108,8 @@ class Lexer {
             l.readChar(this)
         }
     }
+    /* 窥视一下输入中的下一个字符，不会移动位于输入中的指针位置，
+    这样就能知道下一步在调用readChar()时会返回什么。 */
     peekChar(l) {
         if (l.readPosition >= len(l.input)) {
             return 0

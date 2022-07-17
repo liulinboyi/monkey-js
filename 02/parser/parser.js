@@ -161,12 +161,14 @@ export class Parser {
     }
 
     parseStatement() { /* ast.Statement */
+    // 由于Monkey中实际上仅有的两种语句类型是let语句和return语句，
+    // 因此，在没有这两种语句的情况下，就需要解析表达式语句
         switch (this.curToken.Type) {
-            case token.LET:
+            case token.LET: // let语句
                 return this.parseLetStatement()
-            case token.RETURN:
+            case token.RETURN: // return语句
                 return this.parseReturnStatement()
-            default:
+            default: // 表达式语句
                 return this.parseExpressionStatement()
         }
     }

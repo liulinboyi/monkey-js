@@ -1,0 +1,14 @@
+{
+  "name": "01",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "node ./lexer/test.js",
+    "start": "node ./main.js",
+    "parser": "node ./parser/test.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "type": "module"
+}

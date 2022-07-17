@@ -1,0 +1,120 @@
+{
+    "Statements": [
+        {
+            "Token": {
+                "Type": "LET",
+                "Literal": "let"
+            },
+            "Value": {
+                "token": {
+                    "Type": "FUNCTION",
+                    "Literal": "fn"
+                },
+                "Parameters": [],
+                "Body": {
+                    "Token": {
+                        "Type": "{",
+                        "Literal": "{"
+                    },
+                    "Statements": [
+                        {
+                            "Token": {
+                                "Type": "LET",
+                                "Literal": "let"
+                            },
+                            "Value": {
+                                "Token": {
+                                    "Type": "INT",
+                                    "Literal": "10"
+                                },
+                                "Value": 10
+                            },
+                            "Name": {
+                                "Token": {
+                                    "Type": "IDENT",
+                                    "Literal": "a"
+                                },
+                                "Value": "a"
+                            }
+                        },
+                        {
+                            "Token": {
+                                "Type": "RETURN",
+                                "Literal": "return"
+                            },
+                            "ReturnValue": {
+                                "token": {
+                                    "Type": "FUNCTION",
+                                    "Literal": "fn"
+                                },
+                                "Parameters": [],
+                                "Body": {
+                                    "Token": {
+                                        "Type": "{",
+                                        "Literal": "{"
+                                    },
+                                    "Statements": [
+                                        {
+                                            "Token": {
+                                                "Type": "RETURN",
+                                                "Literal": "return"
+                                            },
+                                            "ReturnValue": {
+                                                "Token": {
+                                                    "Type": "+",
+                                                    "Literal": "+"
+                                                },
+                                                "Left": {
+                                                    "Token": {
+                                                        "Type": "IDENT",
+                                                        "Literal": "a"
+                                                    },
+                                                    "Value": "a"
+                                                },
+                                                "Operator": "+",
+                                                "Right": {
+                                                    "Token": {
+                                                        "Type": "INT",
+                                                        "Literal": "1"
+                                                    },
+                                                    "Value": 1
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    ]
+                }
+            },
+            "Name": {
+                "Token": {
+                    "Type": "IDENT",
+                    "Literal": "foo"
+                },
+                "Value": "foo"
+            }
+        },
+        {
+            "Token": {
+                "Type": "IDENT",
+                "Literal": "foo"
+            },
+            "Expression": {
+                "Token": {
+                    "Type": "(",
+                    "Literal": "("
+                },
+                "Function": {
+                    "Token": {
+                        "Type": "IDENT",
+                        "Literal": "foo"
+                    },
+                    "Value": "foo"
+                },
+                "Arguments": []
+            }
+        }
+    ]
+}

@@ -119,7 +119,7 @@ class Lexer {
     }
     readIdentifier(l) {
         let position = l.position
-        while (isLetter(l.ch)) {
+        while (typeof l.ch === 'string' && isLetter(l.ch)) {
             l.readChar(this)
         }
         return l.input.slice(position, l.position)
@@ -127,7 +127,7 @@ class Lexer {
 
     readNumber(l) {
         let position = l.position
-        while (isDigit(l.ch)) {
+        while (typeof l.ch === 'string' && isDigit(l.ch)) {
             l.readChar(this)
         }
         return l.input.slice(position, l.position)
@@ -143,11 +143,13 @@ function newToken(tokenType, ch) {
 }
 
 function isLetter(ch) {
-    return 'a' <= ch && ch <= 'z' || 'A' <= ch && ch <= 'Z' || ch === '_'
+    ch = ch.codePointAt()
+    return 'a'.codePointAt() <= ch && ch <= 'z'.codePointAt() || 'A'.codePointAt() <= ch && ch <= 'Z'.codePointAt() || ch === '_'.codePointAt()
 }
 
 function isDigit(ch) {
-    return '0' <= ch && ch <= '9'
+    ch = ch.codePointAt()
+    return '0'.codePointAt() <= ch && ch <= '9'.codePointAt()
 }
 
 export default Lexer

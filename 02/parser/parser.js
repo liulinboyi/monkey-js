@@ -13,6 +13,9 @@ import {
     FunctionLiteral,
     CallExpression
 } from '../ast/ast.js'
+// 常量使用的数字无关紧要，重要的是顺序和彼此之间的关系。
+// 这些常量是用来区分运算符优先级的，比如*运算符的优先级
+// 是否比==运算符高，前缀运算符的优先级是否比调用表达式的优先级高。
 const int = 0
 const LOWEST = 1
 const EQUALS = 2 // ==
@@ -65,7 +68,9 @@ export class Parser {
         this.l = l
         this.errors = []
 
-        this.prefixParseFns = () => {}
+        // 初始化了prefixParseFns映射
+        this.prefixParseFns = {}
+        // 注册解析函数们
         this.registerPrefix(token.IDENT, this.parseIdentifier)
         this.registerPrefix(token.INT, this.parseIntegerLiteral)
         this.registerPrefix(token.BANG, this.parsePrefixExpression)
@@ -76,7 +81,7 @@ export class Parser {
         this.registerPrefix(token.IF, this.parseIfExpression)
         this.registerPrefix(token.FUNCTION, this.parseFunctionLiteral)
 
-        this.infixParseFns = () => {}
+        this.infixParseFns = {}
         this.registerInfix(token.PLUS, this.parseInfixExpression)
         this.registerInfix(token.MINUS, this.parseInfixExpression)
         this.registerInfix(token.SLASH, this.parseInfixExpression)
@@ -160,9 +165,10 @@ export class Parser {
         return program
     }
 
-    parseStatement() { /* ast.Statement */
-    // 由于Monkey中实际上仅有的两种语句类型是let语句和return语句，
-    // 因此，在没有这两种语句的情况下，就需要解析表达式语句
+    parseStatement() {
+        /* ast.Statement */
+        // 由于Monkey中实际上仅有的两种语句类型是let语句和return语句，
+        // 因此，在没有这两种语句的情况下，就需要解析表达式语句
         switch (this.curToken.Type) {
             case token.LET: // let语句
                 return this.parseLetStatement()
@@ -219,6 +225,7 @@ export class Parser {
         let stmt = new ExpressionStatement( /* Token: */
             this.curToken)
 
+        // 最低的优先级会传递给parseExpression
         stmt.Expression = this.parseExpression(LOWEST)
 
         if (this.peekTokenIs(token.SEMICOLON)) {
@@ -229,11 +236,13 @@ export class Parser {
     }
 
     parseExpression(precedence) { /* ast.Expression */
+        // 检查前缀位置是否有与curToken.Type关联的解析函数
         let prefix = this.prefixParseFns[this.curToken.Type]
         if (prefix == null) {
             this.noPrefixParseFnError(this.curToken.Type)
             return null
         }
+        // 存在prefix，则调用该解析函数
         let leftExp = prefix.call(this)
 
         while (!this.peekTokenIs(token.SEMICOLON) && precedence < this.peekPrecedence()) {

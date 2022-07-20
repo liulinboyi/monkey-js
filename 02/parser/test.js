@@ -8,7 +8,9 @@ import {__dirname} from './fileInfo.js'
 // let command = `fn foo() {let a = 10;return a;}` // err
 // let command = `let foo = fn() {let a = 10; return a;}`
 // let command = `let foo = fn() {let a = 10; return a;}; foo()`
-let command = `let foo = fn() {let a = 10; return fn() { return a + 1 };}; foo()`
+// let command = `let foo = fn() {let a = 10; return fn() { return a + 1 };}; foo()`
+// let command = `1+2+3`
+let command = `1  +  2  +  3`
 
 let l = new Lexer(command)
 let p = new Parser(l)
